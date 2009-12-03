@@ -1,4 +1,6 @@
 #!/bin/bash
+# (C) 2009 Bernie Thompson http://plugable.com/
+# Licence http://www.opensource.org/licenses/mit-license.html
 
 if [ $# -eq 0 ]
 then
@@ -26,6 +28,7 @@ rendered=`cat /sys/class/graphics/$dev/metrics_bytes_rendered`
 sent=`cat /sys/class/graphics/$dev/metrics_bytes_sent`
 identical=`cat /sys/class/graphics/$dev/metrics_bytes_identical`
 cycles=`cat /sys/class/graphics/$dev/metrics_cpu_kcycles_used`
+mode=`cat /sys/class/graphics/$dev/virtual_size`
 
 bus_compress=`/usr/bin/bc <<EOF
 scale=2; (($rendered - $identical - $sent) / ($rendered - $identical)) * 100
@@ -40,6 +43,11 @@ cycles_per_pix=`/usr/bin/bc <<EOF
 scale=0; $cycles * 1000 / $rendered
 EOF`
 
+echo
+/bin/grep "model name" /proc/cpuinfo
+/bin/grep "MHz" /proc/cpuinfo
+/bin/grep "MemTotal" /proc/meminfo
+echo "Framebuffer Mode: $mode"
 echo
 echo "Rendered bytes:  $rendered (total pixels * Bpp)"
 echo "Identical bytes: $identical (skipped via shadow buffer check)"
