@@ -39,8 +39,11 @@ EOF`
 mbps=`/usr/bin/bc <<EOF
 scale=2; ($sent) / ($end - $start) * 8 / 1048576
 EOF`
-cycles_per_pix=`/usr/bin/bc <<EOF
+cycles_per_rendered_pix=`/usr/bin/bc <<EOF
 scale=0; $cycles * 1000 / $rendered
+EOF`
+cycles_per_sent_pix=`/usr/bin/bc <<EOF
+scale=0; $cycles * 1000 / $sent
 EOF`
 
 echo
@@ -56,7 +59,8 @@ echo "K CPU cycles:    $cycles (transpired, may include context switches)"
 echo
 echo "% pixels found to be unchanged: $unchanged_pct %"
 echo "Compression of changed pixels : $bus_compress %"
-echo "CPU cycles spent per pixel: $cycles_per_pix"
+echo "Total CPU cycles spent per input pixel: $cycles_per_rendered_pix"
+echo "Total CPU cycles spent per output pixel: $cycles_per_sent_pix"
 echo "USB Mbps: $mbps (theoretical USB 2.0 peak 480)"
 echo
 
