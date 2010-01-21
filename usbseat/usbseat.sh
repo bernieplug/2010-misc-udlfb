@@ -29,7 +29,7 @@ case "$ACTION" in
 			# We have a newly complete seat. Start it.
 			TMPFILE=`/bin/mktemp` || exit 1
 			/bin/sed "s/%ID_SEAT%/$1/g" < /lib/udev/usbseat-xf86.conf.sed > $TMPFILE
-			/usr/bin/gdmdynamic -v -t 2 -s 1 -a "$1=/usr/X11R6/bin/X -br :$1 -audit 0 -nolisten tcp -novtswitch -sharevts -config $TMPFILE"
+			/usr/bin/gdmdynamic -v -t 2 -s 1 -a "$1=/usr/X11R6/bin/X -br :$1 vt07 -audit 0 -nolisten tcp -config $TMPFILE"
 			/usr/bin/gdmdynamic -v -r $1
 		fi
 		;;

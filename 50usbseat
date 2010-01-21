@@ -1,0 +1,13 @@
+oldIFS=$IFS
+IFS=:
+set $DISPLAY
+IFS=.
+set $2
+SEAT_ID=$1
+LN=`ls -al /dev/usbseat/$SEAT_ID/sound`
+IFS=C
+set $LN
+CARD_ID=$2
+export ALSA_CARD=$2
+export ALSA_PCM_CARD=$2
+IFS=$oldIFS

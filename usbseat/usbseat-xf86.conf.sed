@@ -1,4 +1,3 @@
-
 Section "ServerFlags"
 	Option	"AutoEnableDevices"	"false"
 	Option	"AutoAddDevices"	"false"
@@ -8,6 +7,10 @@ Section "ServerFlags"
 	Option	"AllowMouseOpenFail"	"yes"
 EndSection
 
+Section "Module"
+	Load "ddc"
+EndSection
+
 Section "Files"                                                                                                              
     ModulePath      "/usr/lib/xorg/modules"
     ModulePath      "/usr/local/lib/xorg/modules"
@@ -15,7 +18,8 @@ EndSection
 
 Section "Device"
 	Identifier "dl"
-	driver	   "displaylink"
+	Driver	   "displaylink"
+#	Option "rotate"	"CCW"
 	Option "fbdev"	"/dev/usbseat/%ID_SEAT%/display"
 EndSection
 
@@ -50,7 +54,7 @@ EndSection
 
 Section "ServerLayout"
 	Identifier "seat"
-	Screen	0 "screen" 0 0 
+	Screen	0 "screen" 0 0
 	InputDevice "keyboard" "CoreKeyboard"
 	InputDevice "mouse" "CorePointer"
 EndSection
