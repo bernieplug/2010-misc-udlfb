@@ -30,6 +30,9 @@ identical=`cat /sys/class/graphics/$dev/metrics_bytes_identical`
 cycles=`cat /sys/class/graphics/$dev/metrics_cpu_kcycles_used`
 mode=`cat /sys/class/graphics/$dev/virtual_size`
 
+run_time=`/usr/bin/bc <<EOF
+scale=0; $end - $start
+EOF`
 bus_compress=`/usr/bin/bc <<EOF
 scale=2; (($rendered - $identical - $sent) / ($rendered - $identical)) * 100
 EOF`
@@ -51,6 +54,7 @@ echo
 /bin/grep "MHz" /proc/cpuinfo
 /bin/grep "MemTotal" /proc/meminfo
 echo "Framebuffer Mode: $mode"
+echo "Test run time: $run_time seconds"
 echo
 echo "Rendered bytes:  $rendered (total pixels * Bpp)"
 echo "Identical bytes: $identical (skipped via shadow buffer check)"
