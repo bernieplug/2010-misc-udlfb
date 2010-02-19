@@ -36,9 +36,9 @@ Section "InputDevice"
 	Identifier "mouse"
 	Driver	"mouse"
 	Option	"CorePointer"
-	Option	"Protocol" "auto"
+	Option	"Protocol" "ImPS/2"
 	Option	"Device"	"/dev/usbseat/%ID_SEAT%/mouse"
-        Option  "Buttons" "5"
+	Option	"Buttons" "5"
 	Option	"ZAxisMapping" "4 5"
 EndSection
 
